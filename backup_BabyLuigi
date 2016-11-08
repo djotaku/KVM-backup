@@ -1,0 +1,29 @@
+!#/bin/bash
+
+today=$(date +%m-%d-%Y)
+
+echo "Shutting down BabyLuigi"
+
+virsh shutdown BabyLuigi
+
+echo "Copying the main drive"
+
+cp /var/lib/libvirt/images/BabyLuigi.qcow2 /root/BabyLuigi_Backups/current
+
+echo "Copying the XML"
+
+virsh dumpxml BabyLuigi > /root/BabyLuigi_Backups/current/BabyLuigi_backup.xml
+
+echo "Tarring it Up"
+
+tar cvzf /root/BabyLuigi_Backups/BabyLuigi$today.tar.gz /root/BabyLuigi_Backups/current/
+
+echo "Cleaning /root/BabyLuigi_Backups/current directory"
+
+rm /root/BabyLuigi_Backups/current/*
+
+echo "Starting BabyLuigi back up"
+
+virsh start BabyLuigi
+
+virsh setmem BabyLuigi 4194304
