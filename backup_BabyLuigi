@@ -26,4 +26,3 @@ echo "Starting BabyLuigi back up"
 
 virsh start BabyLuigi
 
-virsh setmem BabyLuigi 4194304
