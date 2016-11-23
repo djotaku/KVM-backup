@@ -1,28 +1,37 @@
-!#/bin/bash
+#!/bin/bash
+
+if [ $# -ne 3 ]; then
+    echo $0: usage: backup_BabyLuigi VM VM_Drive_Location BackupLocation
+    exit 1
+fi
+
+VM=$1
+Loc=$2
+Backup=$3
 
 today=$(date +%m-%d-%Y)
 
-echo "Shutting down BabyLuigi"
+echo "Shutting down" $VM
 
-virsh shutdown BabyLuigi
+#virsh shutdown $VM
 
 echo "Copying the main drive"
 
-cp /var/lib/libvirt/images/BabyLuigi.qcow2 /root/BabyLuigi_Backups/current
+cp $Loc/$VM.qcow2 $Backup/current
 
 echo "Copying the XML"
 
-virsh dumpxml BabyLuigi > /root/BabyLuigi_Backups/current/BabyLuigi_backup.xml
+#virsh dumpxml #VM > $Backup/current/$VM_backup.xml
 
 echo "Tarring it Up"
 
-tar cvzf /root/BabyLuigi_Backups/BabyLuigi$today.tar.gz /root/BabyLuigi_Backups/current/
+tar cvzf $Backup/$VM$today.tar.gz $Backup/current/
 
-echo "Cleaning /root/BabyLuigi_Backups/current directory"
+echo "Cleaning "$Backup"/current directory"
 
-rm /root/BabyLuigi_Backups/current/*
+rm $Backup/current/*
 
-echo "Starting BabyLuigi back up"
+echo "Starting "$VM" back up"
 
-virsh start BabyLuigi
+virsh start $VM
 
