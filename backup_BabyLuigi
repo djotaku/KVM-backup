@@ -21,7 +21,7 @@ cp $Loc/$VM.qcow2 $Backup/current
 
 echo "Copying the XML"
 
-#virsh dumpxml #VM > $Backup/current/$VM_backup.xml
+virsh dumpxml $VM > $Backup/current/$VM_backup.xml
 
 echo "Tarring it Up"
 
