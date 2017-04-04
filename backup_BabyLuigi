@@ -13,25 +13,34 @@ today=$(date +%m-%d-%Y)
 
 echo "Shutting down" $VM
 
-virsh shutdown $VM
+#virsh shutdown $VM
 
-echo "Copying the main drive"
+while true; do
 
-cp $Loc/$VM.qcow2 $Backup/current
+	if virsh domstate CheepCheep | awk 'running'; then 
+		echo "still running"
+	else
+		break
+	fi
+done
 
-echo "Copying the XML"
+#echo "Copying the main drive"
 
-virsh dumpxml $VM > $Backup/current/$VM_backup.xml
+#cp $Loc/$VM.qcow2 $Backup/current
 
-echo "Tarring it Up"
+#echo "Copying the XML"
 
-tar cvzf $Backup/$VM$today.tar.gz $Backup/current/
+#virsh dumpxml $VM > $Backup/current/$VM_backup.xml
 
-echo "Cleaning "$Backup"/current directory"
+#echo "Tarring it Up"
 
-rm $Backup/current/*
+#tar cvzf $Backup/$VM$today.tar.gz $Backup/current/
 
-echo "Starting "$VM" back up"
+#echo "Cleaning "$Backup"/current directory"
 
-virsh start $VM
+#rm $Backup/current/*
+
+#echo "Starting "$VM" back up"
+
+#virsh start $VM
 
