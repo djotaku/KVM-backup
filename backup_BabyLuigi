@@ -13,7 +13,7 @@ today=$(date +%m-%d-%Y)
 
 echo "Shutting down" $VM
 
-#virsh shutdown $VM
+virsh shutdown $VM
 
 echo "Copying the main drive"
 
