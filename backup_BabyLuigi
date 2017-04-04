@@ -17,7 +17,7 @@ virsh shutdown $VM
 
 while true; do
 
-	if virsh domstate CheepCheep | awk 'running'; then 
+	if [[$(virsh domstate CheepCheep | grep 'running') = *running*]]; then 
 		echo "still running"
 	else
 		break
