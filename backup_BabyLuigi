@@ -13,11 +13,11 @@ today=$(date +%m-%d-%Y)
 
 echo "Shutting down" $VM
 
-#virsh shutdown $VM
+virsh shutdown $VM
 
 while true; do
 
-	if [$(virsh domstate CheepCheep | grep 'running')]; then 
+	if virsh domstate CheepCheep | grep 'running'; then 
 		echo "still running"
 	else
 		break
@@ -26,21 +26,21 @@ done
 
 echo "Copying the main drive"
 
-#cp $Loc/$VM.qcow2 $Backup/current
+cp $Loc/$VM.qcow2 $Backup/current
 
 echo "Copying the XML"
 
-#virsh dumpxml $VM > $Backup/current/$VM_backup.xml
+virsh dumpxml $VM > $Backup/current/$VM_backup.xml
 
 echo "Tarring it Up"
 
-#tar cvzf $Backup/$VM$today.tar.gz $Backup/current/
+tar cvzf $Backup/$VM$today.tar.gz $Backup/current/
 
 echo "Cleaning "$Backup"/current directory"
 
-#rm $Backup/current/*
+rm $Backup/current/*
 
 echo "Starting "$VM" back up"
 
-#virsh start $VM
+virsh start $VM
 
