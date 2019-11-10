@@ -1,12 +1,12 @@
 #!/bin/bash
 
 if [ $# -ne 3 ]; then
-    echo $0: usage: backup_VM VM_Name VM_Drive_Location BackupLocation
+    echo $0: usage: backup_VM VM_Name Full_Path_VM_Drive_Location BackupLocation
     exit 1
 fi
 
 VM=$1
-Loc=$2
+Drive=$2
 Backup=$3
 
 today=$(date +%m-%d-%Y)
@@ -26,7 +26,7 @@ done
 
 echo "Copying the main drive"
 
-cp $Loc/$VM.qcow2 $Backup/current
+cp $Drive $Backup/current/
 
 echo "Copying the XML"
 
