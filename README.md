@@ -9,6 +9,14 @@ ie:
 
 backup_VM Fedora30_container_from_yaml /media/NotHome/VMs/container_server.qcow2 /media/NotHome/VMs/backups
 
+Make sure that at the backup location you have a folder already existing called "current".  
+
+ie: 
+
+For the script you specify BackupLocation, but within that folder you already have a folder called current.
+
+BackupLocation/current/ 
+
 First stops it because backing up a running VM can lead to an unusable backup.
 
 Then it copies the drive specified to the backup location under a folder named "current". 
