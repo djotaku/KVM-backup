@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ $# -ne 3 ]; then
-    echo $0: usage: backup_BabyLuigi VM VM_Drive_Location BackupLocation
+    echo $0: usage: backup_VM VM VM_Drive_Location BackupLocation
     exit 1
 fi
 
